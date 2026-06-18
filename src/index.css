@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-brand: #0A1628; /* Dark Navy for top bars */
+  --color-brand-blue: #0077CC; /* Primary interface blue */
+  --color-brand-light: #F4F9FF; /* Soft background blue */
+  --color-accent: #1E8AC9; /* Blue accent from icons */
+  --color-gold: #FFB800; /* Gold for text highlights */
+}

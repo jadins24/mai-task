@@ -45,19 +45,47 @@ export default function Hero() {
         >
           <div className="space-y-4">
             <h1 className="font-bold text-white flex flex-col md:flex-row items-center justify-center gap-x-4 leading-tight text-center">
-              <span className="text-3xl md:text-5xl lg:text-7xl">We Find You The</span>
+              <span className="text-2xl md:text-3xl lg:text-5xl">We Find You The</span>
               <div className="h-[1.2em] relative min-w-[300px] flex items-center justify-center md:justify-start">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={words[wordIndex]}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-3xl md:text-5xl lg:text-7xl font-black text-white"
+                    className="text-2xl md:text-3xl lg:text-5xl font-black text-[#FFB800] inline-block relative"
                   >
-                    {words[wordIndex]}
-                    <span className="text-white ml-1 animate-pulse">|</span>
+                    {words[wordIndex].split('').map((char, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ 
+                          opacity: 0,
+                          transition: { 
+                            duration: 0.04,
+                            delay: (words[wordIndex].length - i) * 0.04
+                          }
+                        }}
+                        transition={{ 
+                          duration: 0.05,
+                          delay: i * 0.07,
+                          ease: "linear"
+                        }}
+                        className="inline-block"
+                      >
+                        {char === ' ' ? '\u00A0' : char}
+                      </motion.span>
+                    ))}
+                    <motion.span 
+                      className="text-white ml-1 inline-block"
+                      animate={{ opacity: [1, 0, 1] }}
+                      transition={{ 
+                        duration: 0.8, 
+                        repeat: Infinity,
+                        ease: "linear",
+                        times: [0, 0.5, 1]
+                      }}
+                    >
+                      |
+                    </motion.span>
                   </motion.span>
                 </AnimatePresence>
               </div>

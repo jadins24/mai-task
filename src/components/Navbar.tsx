@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { User, ChevronDown, Menu, Search, PlusCircle, Send, Briefcase } from 'lucide-react';
+import { User, ChevronDown, Menu, Search, PlusCircle, Send, Briefcase, X, Home, Info, FileText, Newspaper, Award, MessageCircle, LogIn, UserPlus, BookOpen, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <header className="fixed top-0 w-full z-50 font-sans">
@@ -14,7 +15,11 @@ export default function Navbar() {
       >
         {/* Logo */}
         <a href="/" className="flex flex-col items-start flex-shrink-0 group cursor-pointer">
-          <span className="text-[2.5rem] font-black tracking-tighter leading-none text-white group-hover:text-accent transition-colors">MAI</span>
+          <img
+            src="https://d2iyhd3v3rvz2k.cloudfront.net/commonFiles/1754994240150-Group_5258.png"
+            alt="MAI Logo"
+            className="h-10 w-auto mb-1"
+          />
           <span className="text-[10px] text-gray-400 font-bold tracking-widest leading-none transform -translate-y-1">WE BUILD HOMES</span>
         </a>
 
@@ -49,13 +54,16 @@ export default function Navbar() {
             </button>
           </div>
           
-          <button className="lg:hidden text-white flex items-center p-2 hover:bg-white/5 rounded-full transition-colors">
-            <Menu className="w-7 h-7" />
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden text-white flex items-center p-2 hover:bg-white/5 rounded-full transition-colors"
+          >
+            {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
       </div>
 
-      {/* Main Navigation (Gray Dropdown Gradient) */}
+      {/* Main Navigation (Desktop) */}
       <nav 
         className="hidden lg:flex items-center justify-between px-4 sm:px-10 xl:px-24 h-11 backdrop-blur-md border-b border-white/10"
         style={{ background: 'linear-gradient(90deg, rgba(5, 12, 28, 0.45) 0%, rgba(10, 22, 40, 0.45) 100%)' }}
@@ -123,6 +131,94 @@ export default function Navbar() {
           <ActionItem href="/apply-internship" icon={<InternshipIcon />} label="Apply Internship" />
         </div>
       </nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden fixed inset-0 top-[88px] bg-[#0A1628] overflow-y-auto z-40"
+          >
+            <div className="px-6 py-8 space-y-8">
+              {/* Logo Section */}
+              <div className="flex flex-col items-start">
+                <img
+                  src="https://d2iyhd3v3rvz2k.cloudfront.net/commonFiles/1754994240150-Group_5258.png"
+                  alt="MAI Logo"
+                  className="h-12 w-auto mb-2"
+                />
+                <span className="text-xs text-gray-400 font-bold tracking-widest">WE BUILD HOMES</span>
+              </div>
+
+              {/* Sign In / Register Section */}
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, rgb(30, 138, 201), rgb(0, 63, 107))' }}>
+                    <User className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-lg">Sign In / Register</h3>
+                    <p className="text-gray-400 text-sm">Access your MAI account</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Actions */}
+              <div>
+                <h4 className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-4">Quick Actions</h4>
+                <div className="space-y-3">
+                  <MobileActionItem href="/post-a-project" icon={<PlusCircle className="w-5 h-5" />} label="Post Project" />
+                  <MobileActionItem href="/apply-internship" icon={<Briefcase className="w-5 h-5" />} label="Apply Internship" />
+                  <MobileActionItem href="/send-proposals" icon={<Send className="w-5 h-5" />} label="Send Proposals" />
+                </div>
+              </div>
+
+              {/* Navigation */}
+              <div>
+                <h4 className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-4">Navigation</h4>
+                <div className="space-y-3">
+                  <MobileNavItem href="/" icon={<Home className="w-5 h-5" />} label="Home" />
+                  <MobileNavItem href="/how-it-works" icon={<Info className="w-5 h-5" />} label="How It Works" />
+                  <MobileNavItem href="/projects" icon={<FileText className="w-5 h-5" />} label="Projects" />
+                  <MobileNavItem href="/blogs" icon={<Newspaper className="w-5 h-5" />} label="Blogs" />
+                  <MobileNavItem href="/mai-awards" icon={<Award className="w-5 h-5" />} label="Mai Awards" />
+                </div>
+              </div>
+
+              {/* Help Section */}
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="flex items-start gap-3">
+                  <MessageCircle className="w-5 h-5 text-[#1E8AC9] flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-white font-semibold">Need help? We're here for you</h4>
+                    <div className="flex flex-col gap-2 mt-3">
+                      <a href="/book-demo" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
+                        <BookOpen className="w-4 h-4" />
+                        Book Demo
+                      </a>
+                      <a href="/contact" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
+                        <Mail className="w-4 h-4" />
+                        Contact Us
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Sign In Button */}
+              <div className="pt-4 border-t border-white/10">
+                <button className="w-full bg-[#1E8AC9] text-white font-bold py-3 px-6 rounded-full hover:bg-[#1E8AC9]/80 transition-colors flex items-center justify-center gap-2">
+                  <LogIn className="w-5 h-5" />
+                  Sign In
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
@@ -140,6 +236,24 @@ function ActionItem({ href, icon, label }: { href: string; icon: React.ReactNode
     <a href={href} className="flex items-center gap-1.5 px-3 h-full text-white text-[11px] xl:text-[14px] font-medium uppercase tracking-wider cursor-pointer hover:text-white/80 transition-all">
       {icon}
       {label}
+    </a>
+  );
+}
+
+function MobileNavItem({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
+  return (
+    <a href={href} className="flex items-center gap-3 text-white/80 hover:text-white transition-colors py-2">
+      {icon}
+      <span className="text-sm">{label}</span>
+    </a>
+  );
+}
+
+function MobileActionItem({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
+  return (
+    <a href={href} className="flex items-center gap-3 bg-white/5 hover:bg-white/10 transition-colors rounded-lg px-4 py-3 text-white/90 hover:text-white">
+      {icon}
+      <span className="text-sm font-medium">{label}</span>
     </a>
   );
 }

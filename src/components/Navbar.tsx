@@ -20,7 +20,6 @@ export default function Navbar() {
             alt="MAI Logo"
             className="h-10 w-auto mb-1"
           />
-          <span className="text-[10px] text-gray-400 font-bold tracking-widest leading-none transform -translate-y-1">WE BUILD HOMES</span>
         </a>
 
         {/* Search Bar (Desktop) */}
